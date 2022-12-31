@@ -34,14 +34,16 @@ local function temporarilyDisable()
     print("Temporarily disabling...")
     local fetchUrl = obj.config.pihole_url .. "/admin/api.php?disable=" .. obj.config.pihole_disable_time_s .. "&auth=" .. obj.config.pihole_token
     hs.http.get(fetchUrl, nil, nil)
-    obj.timer:setNextTrigger(0)
+    -- Wait a second before refreshing the status to make sure it took effect
+    obj.timer:setNextTrigger(1)
 end
 
 local function enable()
     print("Enabling...")
     local fetchUrl = obj.config.pihole_url .. "/admin/api.php?enable&auth=" .. obj.config.pihole_token
     hs.http.get(fetchUrl, nil, nil)
-    obj.timer:setNextTrigger(0)
+    -- Wait a second before refreshing the status to make sure it took effect
+    obj.timer:setNextTrigger(1)
 end
 
 local function updateMenu(results, isEnabled)
